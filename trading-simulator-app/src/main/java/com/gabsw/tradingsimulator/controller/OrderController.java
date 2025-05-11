@@ -1,7 +1,9 @@
 package com.gabsw.tradingsimulator.controller;
 
-import com.gabsw.tradingsimulator.model.Order;
+import com.gabsw.tradingsimulator.dto.OrderDTO;
+import com.gabsw.tradingsimulator.mapper.OrderMapper;
 import com.gabsw.tradingsimulator.service.OrderService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,18 +13,23 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final OrderMapper orderMapper;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, OrderMapper orderMapper) {
         this.orderService = orderService;
+        this.orderMapper = orderMapper;
     }
 
     @PostMapping
-    public Order placeOrder(@RequestBody Order order) {
-        return orderService.placeOrder(order);
+    public OrderDTO placeOrder(@RequestBody @Valid OrderDTO orderDTO) {
+        var order = orderMapper.toEntity(orderDTO);
+        var placedOrder = orderService.placeOrder(order);
+        return orderMapper.toDto(placedOrder);
     }
 
     @GetMapping
-    public List<Order> getAllOrders() {
-        return orderService.getAllOrders();
+    public List<OrderDTO> getAllOrders() {
+        var orders = orderService.getAllOrders();
+        return orderMapper.toDtoList(orders);
     }
 }
