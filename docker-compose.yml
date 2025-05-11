@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+
+  app:
+    build:
+      context: ./trading-simulator-app
+      dockerfile: Dockerfile
+    container_name: trading-simulator-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/trading
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: pass
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    container_name: trading-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: trading
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api-client:
+    build:
+      context: ./api-client
+      dockerfile: Dockerfile
+    container_name: api-client
+    depends_on:
+      - app
+    entrypoint: ["sh", "-c", "sleep 10 && ./mvnw exec:java"]
+
+volumes:
+  pgdata:
