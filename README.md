@@ -1,5 +1,5 @@
 # trading-simulator
-A simple trading simulator backend mocking a broker like Degiro.
+A simple trading simulator backend mocking a broker similar to Degiro.
 
 ## Features
 1. Order Booking
