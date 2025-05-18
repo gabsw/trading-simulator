@@ -10,24 +10,24 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/trading
+      SPRING_DATASOURCE_URL:  jdbc:postgresql://timescaledb:5432/trading
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: pass
     depends_on:
       - postgres
 
-  postgres:
-    image: postgres:16
-    container_name: trading-db
+  timescaledb:
+    image: timescale/timescaledb:latest-pg15
+    container_name: timescaledb
     restart: always
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_DB: trading
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - tsdb_data:/var/lib/postgresql/data
 
   api-client:
     build:
@@ -39,4 +39,4 @@ services:
     entrypoint: ["sh", "-c", "sleep 10 && ./mvnw exec:java"]
 
 volumes:
-  pgdata:
+  tsdb_data:
