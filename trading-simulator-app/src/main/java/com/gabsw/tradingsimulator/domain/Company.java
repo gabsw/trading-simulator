@@ -1,4 +1,4 @@
-package com.gabsw.tradingsimulator.model;
+package com.gabsw.tradingsimulator.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

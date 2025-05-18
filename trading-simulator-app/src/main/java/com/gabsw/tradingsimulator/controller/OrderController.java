@@ -22,7 +22,7 @@ public class OrderController {
 
     @PostMapping
     public OrderDTO placeOrder(@RequestBody @Valid OrderDTO orderDTO) {
-        var order = orderMapper.toEntity(orderDTO);
+        var order = orderMapper.toDomain(orderDTO);
         var placedOrder = orderService.placeOrder(order);
         return orderMapper.toDto(placedOrder);
     }

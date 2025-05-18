@@ -1,6 +1,6 @@
 package com.gabsw.tradingsimulator.service;
 
-import com.gabsw.tradingsimulator.model.Company;
+import com.gabsw.tradingsimulator.domain.Company;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

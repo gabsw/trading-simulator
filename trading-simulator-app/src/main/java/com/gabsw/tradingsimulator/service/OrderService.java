@@ -1,6 +1,6 @@
 package com.gabsw.tradingsimulator.service;
 
-import com.gabsw.tradingsimulator.model.Order;
+import com.gabsw.tradingsimulator.domain.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

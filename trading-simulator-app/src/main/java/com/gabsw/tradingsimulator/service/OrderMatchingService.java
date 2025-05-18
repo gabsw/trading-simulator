@@ -1,6 +1,7 @@
 package com.gabsw.tradingsimulator.service;
 
-import com.gabsw.tradingsimulator.model.Order;
+import com.gabsw.tradingsimulator.domain.Order;
+import com.gabsw.tradingsimulator.domain.enums.OrderType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class OrderMatchingService {
                     Comparator.comparingDouble(Order::getPrice)
             ));
 
-            if (incomingOrder.getType() == Order.OrderType.BUY) {
+            if (incomingOrder.getType() == OrderType.BUY) {
                 buyQueue.offer(incomingOrder);
             } else {
                 sellQueue.offer(incomingOrder);
